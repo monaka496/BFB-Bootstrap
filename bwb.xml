@@ -3,15 +3,18 @@
 <html b:css='false' b:version='3' class='v3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' lang='ja' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>	
 <head>
     <title><data:blog.pageTitle/></title>
-        <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
-        <link href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' rel='stylesheet'/>
+    <meta expr:content='data:blog.metaDescription' name='description'/>
+    <meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
+    <b:include data='blog' name='all-head-content'/>
+    <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
+    <link href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' rel='stylesheet'/>
 	<b:skin><![CDATA[]]></b:skin>
 </head>
 <body>
     <!--記事全体のレイアウト枠-->
     <div id="main" class="container"> 
         <!--ヘッダーエリア-->
-			<div id="header" class="row" style="text-align: center">
+			<div id="header" class="pt-3 pb-3 text-center">
 				<b:section id='header'>
 				    <b:widget id='Header0' type='Header' >
 				        <b:includable id='main'>
@@ -24,12 +27,8 @@
 			</div>
         <!--コンテンツエリア-->
         <div id="content" class="row">
-            <!--人気記事一覧-->
-            <div id="popular" class="row">
-
-            </div>
             <!--記事一覧または記事-->
-            <div id="posts" class="col s12 l9">
+            <div id="posts" class="col-md-8">
 	            <b:section id='posts'>
 	                <b:widget id='Blog0' type='Blog'>
 	                    <b:includable id='main'>
@@ -108,7 +107,7 @@
 	            </b:section>
             </div>
             <!--サイドバー-->
-            <div id="side" class="col s12 l3">
+            <div id="side" class="col-md-4">
                 <div id="Labellist" class="collection row">
                     <b:section id='label'>
                         <b:widget id='Label1' type='Label'>
