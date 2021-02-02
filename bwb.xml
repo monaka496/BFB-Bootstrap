@@ -1,1 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:version='3' class='v3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' lang='ja' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>	
+<head>
+    <title><data:blog.pageTitle/></title>
+        <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
+        <link href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' rel='stylesheet'/>
+	<b:skin><![CDATA[]]></b:skin>
+</head>
+<body>
+    <!--記事全体のレイアウト枠-->
+    <div id="main" class="container"> 
+        <!--ヘッダーエリア-->
+			<div id="header" class="row" style="text-align: center">
+				<b:section id='header'>
+				    <b:widget id='Header0' type='Header' >
+				        <b:includable id='main'>
+					        <a expr:href='data:blog.homepageUrl' style="color: black;">
+						        <h1><data:blog.pageTitle/></h1>
+					        </a>
+				        </b:includable>
+				    </b:widget>
+				</b:section>
+			</div>
+        <!--コンテンツエリア-->
+        <div id="content" class="row">
+            <!--人気記事一覧-->
+            <div id="popular" class="row">
 
+            </div>
+            <!--記事一覧または記事-->
+            <div id="posts" class="col s12 l9">
+	            <b:section id='posts'>
+	                <b:widget id='Blog0' type='Blog'>
+	                    <b:includable id='main'>
+		                    <!--エリア見出し-->
+		                    <b:if cond='data:blog.pageType == "index"'>
+			                    <h1>Post</h1>
+		                    </b:if>
+		                    <!--教示処理分岐-->
+                            <ul>
+                                <b:loop var='post' values='data:posts' >
+                                    <b:include cond='data:blog.pageType == "index"' name='PostList' data='post'/><!--トップ・カテゴリ-->
+                                    <b:include cond='data:blog.pageType == "item"' name='PostShow' data='post'/><!--記事の表示-->
+                                </b:loop>
+                                <!--ページ移動ボタン-->
+                                <b:include name='nextprev'/>
+                            </ul>
+	                    </b:includable>	
+	                         <!--トップ・カテゴリ表示の処理-->
+                            <b:includable id='PostList' var='post'>
+                                <a expr:href='data:post.url' style="color: black;">
+                                    <div class="row">
+                                        <li>
+                                            <!--画像の表示-->
+                                            <div class="col s4 l3" style="text-align:center; max-height:;">
+                                                <b:if cond='data:post.firstImageUrl'>
+                                                    <img expr:src='data:post.firstImageUrl' style="margin: 2px; width: 100%; max-height: 146px; object-fit: cover;" />
+                                                    <b:else/>
+                                                    <p>Noimage</p>	
+                                                </b:if>
+                                            </div>
+                                            <!--記事タイトルの表示-->
+                                            <div class="col s8 l9" >
+                                                <h4><data:post.title/></h4>
+                                            </div>
+                                            <!--記事内容の表示-->
+                                            <div class="col s12 l9">
+                                                <b:eval expr='data:post.body snippet{length: 75, links: false, linebreaks: false}'/>
+                                                <p>
+                                                    <b:if cond='data:post.labels'>
+                                                        <b:loop values='data:post.labels' var='label'>
+                                                            <a class="waves-effect waves-light btn-small" style="background-color:#ff9800; " expr:href='data:label.url' rel='tag'><data:label.name/></a>
+                                                            <b:if cond='not data:label.isLast'></b:if>
+                                                        </b:loop>
+                                                    </b:if>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </div>
+                                </a>
+                            </b:includable>		
+	                    <!--記事の表示の処理-->
+                        <b:includable id='PostShow' var='post'>
+                            <div class="row">
+                                公開日：<data:post.timestamp/><hr/>
+                                <h1><data:post.title/></h1>　<!--記事タイトル-->
+                                <span><data:post.body/></span>　<!--記事コンテンツ-->
+                            </div>
+                        </b:includable>
+                        <!--ページ移動ボタン教示の処理-->
+                        <b:includable id='nextprev'>
+                            <div style="display: flex; justify-content: space-between;" class='blog-pager' id='blog-pager'>
+                                <b:if cond='data:newerPageUrl'>
+                                    <a class="waves-effect btn-large orange" expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><i class="material-icons ">arrow_back</i></a>	
+                                <b:else/>
+                                    <a class="btn-large disabled btn-large orange"><i class="material-icons">arrow_back</i></a>
+                                </b:if>
+                                <a class="waves-effect btn-large orange" expr:href='data:blog.homepageUrl' expr:title='data:newerPageTitle'><i class="material-icons">home</i></a>
+                                <b:if cond='data:olderPageUrl'>
+                                    <a class="waves-effect btn-large orange" expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><i class="material-icons ">arrow_forward</i></a>
+                                <b:else/>
+                                    <a class="btn-large disabled btn-large orange"><i class="material-icons">arrow_forward</i></a>
+                                </b:if>
+                            </div>
+                        </b:includable>		
+	                </b:widget>
+	            </b:section>
+            </div>
+            <!--サイドバー-->
+            <div id="side" class="col s12 l3">
+                <div id="Labellist" class="collection row">
+                    <b:section id='label'>
+                        <b:widget id='Label1' type='Label'>
+                            <b:includable id='main'>
+                                <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+                                    <b:loop values='data:labels' var='label'>
+                                        <b:if cond='data:blog.url == data:label.url'>
+                                            <h5><a class="collection-item active" style="background-color:#ff9800 ;" expr:dir='data:blog.languageDirection'><data:label.name/></a></h5>
+                                            <b:else/>
+                                            <h5><a class="collection-item" style="color:#ff9800;" expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a></h5>
+                                        </b:if>
+                                        <b:if cond='data:showFreqNumbers'>
+                                            <span dir='ltr'>(<data:label.count/>)</span>
+                                        </b:if>
+                                    </b:loop>
+                                </div>
+                            </b:includable>
+                        </b:widget>	
+                    </b:section>
+                </div> 						
+            </div>
+        </div>
+        <!--フッターエリア-->
+        <div id="fotter">
+            <b:section id='fotter'>
+                <b:widget id='Header1' type='Header' >
+                    <b:includable id='main'>
+                        <footer class="page-footer orange"><div class="container">
+                            <div class="row">
+                                <div class="col l6 s12">
+                                    <h5 class="white-text"><data:blog.title/></h5>
+                                    <p class="grey-text text-lighten-4"><data:description/></p>
+                                </div>
+                                <div class="col l4 offset-l2 s12">
+                                    <h5 class="white-text">Links</h5>
+                                    <ul>
+                                        <li><a class="grey-text text-lighten-3" href="#">リンク</a></li>
+                                        <li><a class="grey-text text-lighten-3" href="#">リンク</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="footer-copyright">
+                            <div class="container">
+                            © 2020 Copyright <data:blog.title/>
+                            </div>
+                            </div>
+                        </footer>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </div>	
+    </div>
+	</body>
+</html>
