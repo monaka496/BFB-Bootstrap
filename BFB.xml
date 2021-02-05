@@ -182,25 +182,6 @@ img{
                         </div>
                         </b:includable>
                     </b:widget>
-                    <!--サイドバー Author-->
-                    <b:widget id='HTML1' locked='false' title='Author' type='HTML' version='1'>
-                        <b:widget-settings>
-                          <b:widget-setting name='content'>&lt;img src=&quot;#&quot; alt=&quot;&quot; class=&quot;rounded-circle mx-auto d-block&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;
-                                &lt;p class=&quot;mt-3 mb-1 text-muted small text-center font-weight-bold&quot;&gt;名前&lt;/p&gt;
-                                &lt;p class=&quot;mb-2 text-muted small text-center&quot;&gt;テキスト&lt;/p&gt;
-                                &lt;div class=&quot;row&quot;&gt;
-                                &lt;a href=&quot;#&quot; class=&quot;badge badge-primary mb-3 mx-auto&quot;&gt;Twitter&lt;/a&gt;
-                                &lt;/div&gt;</b:widget-setting>
-                        </b:widget-settings>
-                        <b:includable id='main'>
-                                <b:if cond='data:title != &quot;&quot;'>
-                                    <h2 class='h5 mt-3'><data:title/></h2>
-                                </b:if>
-                                <div class='widget-content'>
-                                    <data:content/>
-                                </div>
-                            </b:includable>
-                      </b:widget>
                     <!--サイドバー 人気の投稿-->
                     <b:widget id='PopularPosts1' locked='false' title='人気の投稿' type='PopularPosts'>
                         <b:widget-settings>
