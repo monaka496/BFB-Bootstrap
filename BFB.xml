@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html b:css='false' b:version='3' class='v3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' lang='ja' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>	
+<head>
+<title><data:blog.pageTitle/></title>
+<meta expr:content='data:blog.metaDescription' name='description'/>
+<meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
+<b:include data='blog' name='all-head-content'/>
+<link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
+<b:skin>
+<![CDATA[
+/* **************************
+Name : BFB
+Version : 1.00
+Author : @monaka496
+URL : https://bootstrap-for-blogger-template.blogspot.com/
+UI : Bootstrap 4.5.0
+Licence : カスタマイズは自由です.販売,再配布は禁止です
+************************** */ 
+
+/* 記事本文の画像がはみ出すのを防ぐため */
+img{
+    max-width:100%;
+    height:auto;
+}
+/* 画像に自動でmarginが挿入されるのをリセットするため */
+.separator a{
+    clear:none!important;float:none!important;margin-left:0!important;margin-right:0!important
+}
+]]></b:skin>
+</head>
+<body>
+<!--ページ全体-->
+<div id='main' class='container'> 
+    <!--ヘッダー-->
+    <header class='border-bottom py-2 py-md-3 mb-3'>
+            <a expr:href='data:blog.homepageUrl' expr:title='data:blog.title'><h1 class='mb-0 h4'><data:blog.title/></h1></a>
+    </header>
+
+    <!--コンテンツエリア-->
+    <div id='content' class='row mb-3'>
+
+        <!--記事本文・記事一覧-->
+        <div id='posts' class='col-md-8 mb-3'>
+            <b:section id='posts'>
+                <b:widget id='Blog0' type='Blog'>
+                    <b:includable id='main'>
+                        <!--条件分岐-->
+                        <div class='row'>
+                        <b:loop var='post' values='data:posts' >
+                            <!--1.トップページの場合-->
+                            <b:include cond='data:blog.pageType == "index"' name='PostList' data='post'/>
+                            <!--2.投稿記事の場合-->
+                            <b:include cond='data:blog.pageType == "item"' name='PostShow' data='post'/>
+                            <!--3.固定ページの場合-->
+                            <b:include cond='data:blog.pageType == "static_page"' name='PostPage' data='post'/>
+                        </b:loop>
+                    </div>
+
+                        <!--ページ移動ボタン-->
+                        <b:include name='nextprev'/>
+                    </b:includable>	
+
+                    <!--1.トップページ-->
+                    <b:includable id='PostList' var='post'>
+                                <article class='col-12 col-md-6'>
+                                    <a expr:href='data:post.url'>
+                                        <div class='card mb-3'>
+                                            <!--画像の表示-->
+                                            <b:if cond='data:post.firstImageUrl'>
+                                                <img expr:src='data:post.firstImageUrl' style='width: 100%; max-height: 180px; object-fit: cover;' />
+                                            <b:else/>
+                                                <p><!--ここにサムネがないときにデフォルトで設定したい画像を入れる--></p>	
+                                            </b:if>
+                                            <!--記事タイトルの表示-->
+                                            <div class='m-3' >
+                                                <h5><data:post.title/></h5>
+                                            </div>
+                                            <!--カテゴリの表示-->
+                                            <div class='ml-3'>
+                                                <b:if cond='data:post.labels'>
+                                                    <b:loop values='data:post.labels' var='label'>
+                                                        <a class='badge badge-pill badge-primary' expr:href='data:label.url' rel='tag'><data:label.name/></a>
+                                                        <b:if cond='not data:label.isLast'></b:if>
+                                                    </b:loop>
+                                                </b:if>
+                                            </div>
+                                            <!--投稿日の表示-->
+                                            <div class='ml-3 mb-3'>
+                                                <div class='small text-muted'>
+                                                    <b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </article>
+                    </b:includable>
+
+                    <!--2.投稿記事-->
+                    <b:includable id='PostShow' var='post'>
+                        <!--記事タイトルの表示-->
+                        <h1 class='h5 font-weight-bold col-12'><data:post.title/></h1>
+                        <!--カテゴリの表示-->
+                        <div class='col-12'>
+                        <b:if cond='data:post.labels'>
+                            <b:loop values='data:post.labels' var='label'>
+                                <a class='badge badge-pill badge-primary' expr:href='data:label.url' rel='tag'><data:label.name/></a>
+                                <b:if cond='not data:label.isLast'></b:if>
+                            </b:loop>
+                        </b:if>
+                        </div>
+                        <!--投稿日の表示-->
+                        <div class='col-12 small text-muted'>
+                            <b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/>
+                        </div>
+                        <!--記事コンテンツの表示-->
+                        <div class='m-3'>
+                            <span><data:post.body/></span>
+                        </div>
+                    </b:includable>
+
+                    <!-- 3.固定ページ -->
+                    <b:includable id='PostPage'>
+                        <!--記事タイトルの表示-->
+                        <h1 class='h5 font-weight-bold ml-3'><data:post.title/></h1>
+                        <!--投稿日の表示-->
+                        <div class='col-12 small text-muted'>
+                            <b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/>
+                        </div>
+                        <!--記事コンテンツの表示-->
+                        <div class='m-3'>
+                            <span><data:post.body/></span>
+                        </div>
+                    </b:includable>
+
+                    <!--ページ移動ボタン-->
+                    <b:includable id='nextprev'>
+                        <div style='display: flex; justify-content: space-between;' class='mt-4 mb-4' id='blog-pager'>
+                            <b:if cond='data:newerPageUrl'>
+                                <a class='btn btn-outline-primary' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>新しい記事</a>	
+                            <b:else/>
+                                <a class='btn btn-outline-secondary disabled'>新しい記事</a>
+                            </b:if>
+                            <a class='btn btn-outline-primary' expr:href='data:blog.homepageUrl' expr:title='data:newerPageTitle'>ホーム</a>
+                            <b:if cond='data:olderPageUrl'>
+                                <a class='btn btn-outline-primary' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>古い記事</a>
+                            <b:else/>
+                                <a class='btn btn-outline-secondary disabled'>古い記事</a>
+                            </b:if>
+                        </div>
+                    </b:includable>	
+
+                </b:widget>
+            </b:section>
+        </div>
+
+        <!--サイドバー全体-->
+        <div id='side' class='col-md-4'>
+            <div id='sidebar' class='row pl-3 pr-3'>
+                <b:section id='sidewidget'>
+                    <!--サイドバー サイト内検索-->
+                    <b:widget id='BlogSearch1' locked='false' title='このブログを検索' type='BlogSearch'>
+                        <b:includable id='main'>
+                        <div class='mb-3'>
+                            <div expr:id='data:widget.instanceId + &quot;_form&quot;'>
+                                <form class='form-inline' expr:action='data:blog.searchUrl'>
+                                    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+                                    <table cellpadding='0' cellspacing='0' class='col'>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                            <input autocomplete='off' class='form-control w-100' placeholder='このブログを検索' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q' size='10' title='search' type='text'/>
+                                            </td>
+                                            <td>
+                                            <input class='btn btn-primary ml-2' expr:value='data:messages.search' title='search' type='submit'/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        </b:includable>
+                    </b:widget>
+                    <!--サイドバー Author-->
+                    <b:widget id='HTML1' locked='false' title='Author' type='HTML' version='1'>
+                        <b:widget-settings>
+                          <b:widget-setting name='content'>&lt;img src=&quot;#&quot; alt=&quot;&quot; class=&quot;rounded-circle mx-auto d-block&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;
+                                &lt;p class=&quot;mt-3 mb-1 text-muted small text-center font-weight-bold&quot;&gt;名前&lt;/p&gt;
+                                &lt;p class=&quot;mb-2 text-muted small text-center&quot;&gt;テキスト&lt;/p&gt;
+                                &lt;div class=&quot;row&quot;&gt;
+                                &lt;a href=&quot;#&quot; class=&quot;badge badge-primary mb-3 mx-auto&quot;&gt;Twitter&lt;/a&gt;
+                                &lt;/div&gt;</b:widget-setting>
+                        </b:widget-settings>
+                        <b:includable id='main'>
+                                <b:if cond='data:title != &quot;&quot;'>
+                                    <h2 class='h5 mt-3'><data:title/></h2>
+                                </b:if>
+                                <div class='widget-content'>
+                                    <data:content/>
+                                </div>
+                            </b:includable>
+                      </b:widget>
+                    <!--サイドバー 人気の投稿-->
+                    <b:widget id='PopularPosts1' locked='false' title='人気の投稿' type='PopularPosts'>
+                        <b:widget-settings>
+                            <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
+                            <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+                            <b:widget-setting name='showSnippets'>false</b:widget-setting>
+                            <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
+                        </b:widget-settings>
+                        <b:includable id='main'>
+                            <b:if cond='data:title != &quot;&quot;'><h2 class='h5 mt-3'><data:title/></h2></b:if>
+                            <div class='widget-content popular-posts'>
+                                <b:loop values='data:posts' var='post'>
+                                    <b:if cond='!data:showThumbnails'>
+                                        <b:if cond='!data:showSnippets'>
+                                            <!-- 1.要約・サムネイルなしの場合 -->
+                                            <a expr:href='data:post.href'><data:post.title/></a>
+                                        <b:else/>
+                                            <!-- 2.要約ありの場合 -->
+                                            <div class='item-title'><a expr:href='data:post.href'><data:post.title/></a></div>
+                                            <div class='item-snippet'><data:post.snippet/></div>
+                                        </b:if>
+                                    <b:else/>
+                                        <!-- 3.サムネイルあり or 4.サムネイル・要約ありの場合 -->
+                                        <div expr:class='data:showSnippets ? &quot;item-content&quot; : &quot;row m-2&quot;'>
+                                            <b:if cond='data:post.featuredImage.isResizable or data:post.thumbnail'>
+                                                <div class='col-3 p-0'>
+                                                    <a expr:href='data:post.href' target='_blank'>
+                                                        <b:with value='data:post.featuredImage.isResizable                                  ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;)                                  : data:post.thumbnail' var='image'>
+                                                            <img alt='' expr:src='data:image'/>
+                                                        </b:with>
+                                                    </a>
+                                                </div>
+                                            </b:if>
+                                            <div class='col-9'><a expr:href='data:post.href'><data:post.title/></a></div>
+                                            <b:if cond='data:showSnippets'>
+                                                <div class='item-snippet'><data:post.snippet/></div>
+                                            </b:if>
+                                        </div>
+                                    </b:if>
+                                </b:loop>
+                            </div>
+                        </b:includable>
+                    </b:widget>
+                    <!--サイドバー ラベル-->
+                    <b:widget id='Label1' type='Label'>
+                        <b:includable id='main'>
+                            <b:if cond='data:title != &quot;&quot;'>
+                                <h2 class='h5 mt-3'><data:title/></h2>
+                            </b:if>
+                                <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+                                    <b:loop values='data:labels' var='label'>
+                                        <b:if cond='data:blog.url == data:label.url'>
+                                            <a class='btn btn-outline-secondary btn-sm m-1'  expr:dir='data:blog.languageDirection'><data:label.name/></a>
+                                        <b:else/>
+                                            <a class='btn btn-outline-secondary btn-sm m-1' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+                                        </b:if>
+                                        <b:if cond='data:showFreqNumbers'>
+                                            <span dir='ltr'>(<data:label.count/>)</span>
+                                        </b:if>
+                                    </b:loop>
+                                </div>
+                        </b:includable>
+                    </b:widget>	
+
+                </b:section>
+            </div> 						
+        </div>
+
+    </div>
+
+    <!--フッター-->
+    <footer class='border-top pt-3'>
+        <b:section id='footer'>
+            <b:widget id='Header1' type='Header' >
+                <b:includable id='main'>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='col'>
+                                <h5><data:blog.title/></h5>
+                                <p><data:description/></p>
+                            </div>
+                            <div class='col'>
+                                <h5>リンク</h5>
+                                <ul>
+                                    <li><a href='#'>リンク</a></li>
+                                    <li><a href='#'>リンク</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p class='text-center mb-0 small text-muted p-0'>
+                        © Copyright <data:blog.title/> All Rights Reserved.
+                    </p>
+                    <p class='text-center mb-0 small text-muted'>
+                        Designed by <a href='https://bootstrap-for-blogger-template.blogspot.com/'>BFB</a>
+                    </p>
+                    <p class='text-center mb-0 small text-muted'>
+                        Powered by <a href='https://www.blogger.com/'>Blogger</a>
+                    </p>
+
+                </b:includable>
+            </b:widget>
+        </b:section>
+    </footer>	
+</div>
+</body>
+</html>
