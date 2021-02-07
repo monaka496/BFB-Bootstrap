@@ -7,11 +7,27 @@
 <meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
 <b:include data='blog' name='all-head-content'/>
 <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
+
+<!-- OGP（SNS対応） -->
+<meta name='twitter:card' content='summary'/>
+<!-- 投稿記事の場合 -->
+<b:if cond='data:blog.pageType == &quot;item&quot;'>
+    <meta property='og:type' content='article'/>
+    <meta property='og:url' expr:content='data:blog.canonicalUrl'/>
+    <meta property='og:title' expr:content='data:blog.pageName'/>
+    <meta property='og:image' expr:content='data:blog.postImageUrl'/>
+<!-- それ以外の場合 -->
+<b:else/>
+    <meta property='og:type' content='blog'/>
+    <meta property='og:url' expr:content='data:blog.homepageUrl'/>
+    <meta property='og:title' expr:content='data:blog.pageTitle'/>
+</b:if>
+
 <b:skin>
 <![CDATA[
 /* **************************
 Name : BFB
-Version : 1.00
+Version : 1.20
 Author : @monaka496
 URL : https://bootstrap-for-blogger-template.blogspot.com/
 UI : Bootstrap 4.5.0
@@ -27,6 +43,11 @@ img{
 .separator a{
     clear:none!important;float:none!important;margin-left:0!important;margin-right:0!important
 }
+/* iframe要素がはみ出すのを防ぐため */
+iframe{
+    max-width:100%;
+}
+
 ]]></b:skin>
 </head>
 <body>
