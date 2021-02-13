@@ -2,14 +2,24 @@
 <!DOCTYPE html>
 <html b:css='false' b:version='3' class='v3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' lang='ja' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>	
 <head>
-<title><data:blog.pageTitle/></title>
+
+<!--タイトル-->
+<b:if cond='data:blog.pageType == &quot;index&quot; '>
+  <!--TOPページの場合-->
+  <title><data:blog.pageTitle/></title>      
+<b:else/>
+  <!--投稿記事の場合-->
+  <title><data:blog.pageName/>|<data:blog.title/>  </title>   
+</b:if>
+
 <meta expr:content='data:blog.metaDescription' name='description'/>
 <meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'/>
 <b:include data='blog' name='all-head-content'/>
 <link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet'/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 
 <!-- OGP（SNS対応） -->
-<meta name='twitter:card' content='summary'/>
+<meta name='twitter:card' content='summary_large_image'/>
 <!-- 投稿記事の場合 -->
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
     <meta property='og:type' content='article'/>
@@ -27,11 +37,12 @@
 <![CDATA[
 /* **************************
 Name : BFB
-Version : 1.20
+Version : 1.50
 Author : @monaka496
 URL : https://bootstrap-for-blogger-template.blogspot.com/
 UI : Bootstrap 4.5.0
-Licence : カスタマイズは自由です.販売,再配布は禁止です
+Icon : Bootstrap Icons v1.3.0
+Licence : カスタマイズは自由です。販売、再配布は禁止です。
 ************************** */ 
 
 /* 記事本文の画像がはみ出すのを防ぐため */
@@ -54,8 +65,42 @@ iframe{
 <!--ページ全体-->
 <div id='main' class='container'> 
     <!--ヘッダー-->
-    <header class='border-bottom py-2 py-md-3 mb-3'>
-            <a expr:href='data:blog.homepageUrl' expr:title='data:blog.title'><h1 class='mb-0 h4'><data:blog.title/></h1></a>
+    <header class='border-bottom py-1 mb-3'>
+        <nav class="navbar navbar-expand-xl navbar-light p-1">
+            <a expr:href='data:blog.homepageUrl' expr:title='data:blog.title'><h1 class='mb-0 h5 font-weight-bold'><data:blog.title/></h1></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto ml-3">
+                    <li class="nav-item active px-2">
+                        <a class="nav-link" href="#">リンク1</a>
+                    </li>
+                    <li class="nav-item active px-2">
+                    <a class="nav-link" href="#">リンク2</a>
+                    </li>
+                    <li class="nav-item active px-2">
+                    <a class="nav-link" href="#">リンク3</a>
+                    </li>
+                </ul>
+                <form class='form-inline my-1' expr:action='data:blog.searchUrl'>
+                    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+                    <table cellpadding='0' cellspacing='0' class='col'>
+                        <tbody>
+                        <tr>
+                            <td>
+                            <input autocomplete='off' class='form-control w-100' placeholder='このブログを検索' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q' size='20' title='search' type='text'/>
+                            </td>
+                            <td>
+                            <input class='btn btn-primary ml-2' expr:value='data:messages.search' title='search' type='submit'/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+      </nav>    
     </header>
 
     <!--コンテンツエリア-->
@@ -119,31 +164,39 @@ iframe{
 
                     <!--2.投稿記事-->
                     <b:includable id='PostShow' var='post'>
-                        <!--記事タイトルの表示-->
-                        <h1 class='h5 font-weight-bold col-12'><data:post.title/></h1>
-                        <!--カテゴリの表示-->
-                        <div class='col-12'>
-                        <b:if cond='data:post.labels'>
-                            <b:loop values='data:post.labels' var='label'>
-                                <a class='badge badge-pill badge-primary' expr:href='data:label.url' rel='tag'><data:label.name/></a>
-                                <b:if cond='not data:label.isLast'></b:if>
-                            </b:loop>
-                        </b:if>
-                        </div>
-                        <!--投稿日の表示-->
-                        <div class='col-12 small text-muted'>
-                            <b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/>
-                        </div>
-                        <!--記事コンテンツの表示-->
-                        <div class='m-3'>
-                            <span><data:post.body/></span>
+                        <div class='w-100' itemscope='itemscope' itemtype="http://schema.org/BlogPosting">
+                            <!--記事タイトルの表示-->
+                            <h1 class='h5 font-weight-bold col-12' itemprop="headline"><data:post.title/></h1>
+                            <!--カテゴリの表示-->
+                            <div class='col-12'>
+                            <b:if cond='data:post.labels'>
+                                <b:loop values='data:post.labels' var='label'>
+                                    <a class='badge badge-pill badge-primary' expr:href='data:label.url' rel='tag'><data:label.name/></a>
+                                    <b:if cond='not data:label.isLast'></b:if>
+                                </b:loop>
+                            </b:if>
+                            </div>
+                            <!--投稿日の表示-->
+                            <div class='col-12 small text-muted'>
+                              <i class="bi bi-clock mr-1"></i><time itemprop="datePublished" expr:datetime='data:post.timestampISO8601'><b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/></time>
+                              <!--SNSシェアボタンの表示-->
+                              <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                                <div class='m-1 text-center badge position-relative float-right' style="background-color:#1877f2;"><a class='stretched-link text-white' expr:href='&quot;http://www.facebook.com/sharer.php?u=&quot; + data:post.canonicalUrl + &quot;&amp;t=&quot; + data:post.title' target='_blank'><i class="bi bi-facebook text-white mr-2"></i>Share</a></div>
+                                <div class='m-1 text-center badge position-relative float-right' style="background-color:#1DA1F2;"><a class='stretched-link text-white' expr:href='&quot;https://twitter.com/intent/tweet?text=&quot; + data:post.title + &quot; &amp;url=&quot; + data:post.canonicalUrl' target='_blank'><i class="bi bi-twitter text-white mr-2"></i>Tweet</a></div>
+                              </b:if>
+                            </div>
+                            <!--記事コンテンツの表示-->
+                            <div class='m-3' id='img-itemprop'>
+                                <span><data:post.body/></span>
+                            </div>
+
                         </div>
                     </b:includable>
 
                     <!-- 3.固定ページ -->
                     <b:includable id='PostPage'>
                         <!--記事タイトルの表示-->
-                        <h1 class='h5 font-weight-bold ml-3'><data:post.title/></h1>
+                        <h1 class='h5 font-weight-bold col-12 ml-3'><data:post.title/></h1>
                         <!--投稿日の表示-->
                         <div class='col-12 small text-muted'>
                             <b:eval expr='data:this.allBylineItems.timestamp.label + &quot; &quot; + data:post.date'/>
@@ -179,40 +232,16 @@ iframe{
         <div id='side' class='col-md-4'>
             <div id='sidebar' class='pl-2 pr-2'>
                 <b:section id='sidewidget'>
-                    <!--サイドバー サイト内検索-->
-                    <b:widget id='BlogSearch1' locked='false' title='このブログを検索' type='BlogSearch'>
-                        <b:includable id='main'>
-                        <div class='mb-3'>
-                            <div expr:id='data:widget.instanceId + &quot;_form&quot;'>
-                                <form class='form-inline' expr:action='data:blog.searchUrl'>
-                                    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
-                                    <table cellpadding='0' cellspacing='0' class='col'>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                            <input autocomplete='off' class='form-control w-100' placeholder='このブログを検索' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q' size='10' title='search' type='text'/>
-                                            </td>
-                                            <td>
-                                            <input class='btn btn-primary ml-2' expr:value='data:messages.search' title='search' type='submit'/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-                        </b:includable>
-                    </b:widget>
                     <!--サイドバー 人気の投稿-->
                     <b:widget id='PopularPosts1' locked='false' title='人気の投稿' type='PopularPosts'>
                         <b:widget-settings>
-                            <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
+                            <b:widget-setting name='numItemsToShow'>6</b:widget-setting>
                             <b:widget-setting name='showThumbnails'>true</b:widget-setting>
                             <b:widget-setting name='showSnippets'>false</b:widget-setting>
                             <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
-                            <b:if cond='data:title != &quot;&quot;'><h2 class='h5 mt-3'><data:title/></h2></b:if>
+                            <b:if cond='data:title != &quot;&quot;'><h2 class='h5'><data:title/></h2></b:if>
                             <div class='widget-content popular-posts'>
                                 <b:loop values='data:posts' var='post'>
                                     <b:if cond='!data:showThumbnails'>
@@ -294,7 +323,7 @@ iframe{
                         </div>
                     </div>
                     <p class='text-center mb-0 small text-muted p-0'>
-                        © Copyright <data:blog.title/> All Rights Reserved.
+                        Copyright © <data:blog.title/> All Rights Reserved.
                     </p>
                     <p class='text-center mb-0 small text-muted'>
                         Designed by <a href='https://bootstrap-for-blogger-template.blogspot.com/'>BFB</a>
@@ -308,5 +337,21 @@ iframe{
         </b:section>
     </footer>	
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<!-- JQuery -->
+<script src='//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<!-- 投稿記事のimgにitemprop要素を付与する -->
+<script>
+$(function(){
+ 
+    jQuery('#img-itemprop img').attr('itemprop', 'image');
+  
+ });
+</script>
+
 </body>
 </html>
