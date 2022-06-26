@@ -56,7 +56,7 @@ Author : @monaka496
 URL : https://www.monaka.dev/
 UI : Bootstrap v4.5.0
 Icon : Bootstrap Icons v1.4.0
-Licence : カスタマイズは自由です.販売,再配布は禁止です.
+Licence : MIT License
 ************************** */ 
 
 /* 記事本文の画像がはみ出すのを防ぐため */
