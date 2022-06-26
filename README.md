@@ -3,6 +3,8 @@
 CSSフレームワーク「Bootstrap」と「Bootstrap icons」を利用しています。  
 できるだけプレーンなBootstrapのデザインになるよう意識したテンプレートです。  
 
+ダウンロード：https://github.com/monalog/BFB-Bootstrap/archive/refs/heads/main.zip  
+  
 デモページ：https://blogger-test-147852369.blogspot.com/
 
 ### インストール方法
@@ -11,8 +13,8 @@ CSSフレームワーク「Bootstrap」と「Bootstrap icons」を利用して�
 3. 「BFB.xml」を適用します
 
 ### カスタマイズについて
-Bootstrapを利用していますので、各種コンポーネントやパーツは利用可能になっています。
-そのため基本はBootstrapの公式ドキュメントをご参照ください。
+Bootstrapを利用していますので、各種コンポーネントやパーツは利用可能になっています。  
+そのため基本はBootstrapの公式ドキュメントをご参照ください。  
 以下にテンプレート制作の際の気づきやカスタマイズ方法をまとめていますので参考にしていただけると幸いです。
 
 カスタマイズサンプル：https://www.monaka.dev/2022/06/bfbbootstrap.html
