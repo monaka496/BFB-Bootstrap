@@ -19,6 +19,10 @@ Bootstrapを利用していますので、各種コンポーネントやパー�
 
 カスタマイズサンプル：https://www.monaka.dev/2022/06/bfbbootstrap.html
 
+### license
+Bootstrap      ：https://github.com/twbs/bootstrap
+Bootstrap icons：https://github.com/twbs/icons
+
 ### Tips（Twitter）
 サポートいただけたら嬉しいです。よろしくお願いします。  
 https://twitter.com/monaka496
