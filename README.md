@@ -1,3 +1,5 @@
+Blogger template BFB(Bootstrap for Blogger)
+
 ### BFB(Bootstrap版)とは？
 もなか（@monaka496）が自作したBloggerテンプレートです。  
 CSSフレームワーク「Bootstrap」と「Bootstrap icons」を利用しています。  
