@@ -223,7 +223,7 @@ iframe{
                                     <div class='card my-2'>
                                         <!-- 画像の表示 -->
                                         <b:if cond='data:post.firstImageUrl'>
-                                            <img alt='イメージ' expr:src='data:post.firstImageUrl + &quot;-rw&quot;' style='width: 100%; max-height: 200px; object-fit: cover;'/>
+                                            <img alt='イメージ' expr:src='data:post.firstImageUrl' style='width: 100%; max-height: 200px; object-fit: cover;'/>
                                             <b:else/>
                                             <p>
                                                 <!-- ここにサムネがないときにデフォルトで設定したい画像を入れる -->
@@ -1339,7 +1339,7 @@ iframe{
                                             <!-- 3.サムネイルあり or 4.サムネイル要約ありの場合 -->
                                             <div expr:class='data:showSnippets ? &quot;item-content&quot; : &quot;row m-2&quot;'>
                                                 <b:if cond='data:post.featuredImage.isResizable or data:post.thumbnail'>
-                                                    <div class='col-3 p-0'><a expr:href='data:post.href' target='_blank'><b:with value='data:post.featuredImage.isResizable                                  ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;)                                  : data:post.thumbnail' var='image'><img alt='イメージ' expr:src='data:image + &quot;-rw&quot;'/></b:with></a></div>
+                                                    <div class='col-3 p-0'><a expr:href='data:post.href' target='_blank'><b:with value='data:post.featuredImage.isResizable                                  ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;)                                  : data:post.thumbnail' var='image'><img alt='イメージ' expr:src='data:image'/></b:with></a></div>
                                                 </b:if>
                                                 <div class='col-9'><a expr:href='data:post.href'><data:post.title/></a></div>
                                                 <b:if cond='data:showSnippets'>
