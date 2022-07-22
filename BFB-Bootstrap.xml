@@ -15,8 +15,8 @@
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- css -->
-<link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet preload' as='style'/>
-<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css' rel='stylesheet preload' as='style'/>
+<link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' rel='stylesheet' as='style'/>
+<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css' rel='stylesheet' as='style'/>
 
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
@@ -71,6 +71,10 @@ img{
 iframe{
   max-width:100%;
 }
+/* 記事のテキストがはみ出るのを防ぐため */
+#article-content{
+	word-break: break-word;
+}
 /* 記事内の見出しを装飾 */
 #article-content h2{
   margin: 20px 0px 20px;
@@ -90,6 +94,12 @@ iframe{
 /* TOPの日付 */
 #card-date a:hover {
   text-decoration: none;
+}
+@font-face {
+    font-display: swap;
+    font-family: 'bootstrap-icons';
+    src: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/fonts/bootstrap-icons.woff') format('woff'), 
+        url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/fonts/bootstrap-icons.woff2') format('woff2');
 }
 
 ]]></b:skin>
