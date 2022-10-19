@@ -27,7 +27,7 @@
     <!-- 投稿記事OGP -->
     <meta content='article' property='og:type'/>
     <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-    <meta expr:content='data:blog.pageName' property='og:title'/>
+    <meta expr:content='data:blog.pageName + &quot; | &quot; + data:blog.title' property='og:title'/>
     <meta expr:content='data:blog.postImageUrl' property='og:image'/>
     <meta expr:content='data:blog.postImageUrl' name='thumbnail'/>
 <b:else/>
