@@ -25,6 +25,9 @@ Bootstrapを利用していますので、各種コンポーネントやパー�
 Bootstrap      ：https://github.com/twbs/bootstrap  
 Bootstrap icons：https://github.com/twbs/icons  
 
-### Tips（Twitter）
+### Sponsor
 サポートいただけたら嬉しいです。よろしくお願いします。  
+https://github.com/sponsors/monaka496/
+
+### Twitter
 https://twitter.com/monaka496
